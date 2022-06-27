@@ -7,25 +7,60 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		372744962834BBB600154DC0 /* EmptyFeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372744952834BBB600154DC0 /* EmptyFeedTableViewCell.swift */; };
+		372744982835151900154DC0 /* PostCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372744972835151900154DC0 /* PostCellTableViewCell.swift */; };
+		374CC6F3281DF16300383139 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 374CC6F2281DF16300383139 /* GoogleService-Info.plist */; };
+		374CC6F8281DF5B900383139 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 374CC6F7281DF5B900383139 /* FirebaseAuth */; };
+		374CC6FC281DF5B900383139 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 374CC6FB281DF5B900383139 /* FirebaseFirestore */; };
+		374CC700281DF5B900383139 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 374CC6FF281DF5B900383139 /* FirebaseStorage */; };
+		374CC704281E076C00383139 /* MainFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374CC703281E076C00383139 /* MainFeedViewController.swift */; };
+		374CC706281E078300383139 /* UploadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374CC705281E078300383139 /* UploadViewController.swift */; };
+		374CC708281E078F00383139 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374CC707281E078F00383139 /* ProfileViewController.swift */; };
+		374CC70A281E079B00383139 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374CC709281E079B00383139 /* SettingsViewController.swift */; };
+		3752E1CB2839235F003D3FAE /* CirclesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3752E1CA2839235F003D3FAE /* CirclesViewController.swift */; };
 		37550D09281598D90034BB63 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37550D08281598D90034BB63 /* AppDelegate.swift */; };
 		37550D0B281598D90034BB63 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37550D0A281598D90034BB63 /* SceneDelegate.swift */; };
-		37550D0D281598D90034BB63 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37550D0C281598D90034BB63 /* ViewController.swift */; };
+		37550D0D281598D90034BB63 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37550D0C281598D90034BB63 /* LoginViewController.swift */; };
 		37550D10281598D90034BB63 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37550D0E281598D90034BB63 /* Main.storyboard */; };
 		37550D13281598D90034BB63 /* Snapstory_Demo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 37550D11281598D90034BB63 /* Snapstory_Demo.xcdatamodeld */; };
 		37550D15281598DB0034BB63 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 37550D14281598DB0034BB63 /* Assets.xcassets */; };
 		37550D18281598DB0034BB63 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37550D16281598DB0034BB63 /* LaunchScreen.storyboard */; };
+		3768427928404D6800C8156A /* ProfileEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3768427828404D6800C8156A /* ProfileEditViewController.swift */; };
+		37839214281F53FE002B7925 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37839213281F53FE002B7925 /* RegisterViewController.swift */; };
+		37839217281F572A002B7925 /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37839216281F572A002B7925 /* Alerts.swift */; };
+		378D4780282FE02100CECCAB /* PostLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378D477F282FE02100CECCAB /* PostLocationViewController.swift */; };
+		37AE0A9B282B9C4F00998BCF /* Picker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37AE0A9A282B9C4F00998BCF /* Picker.swift */; };
+		37C5038E2837251900A750F6 /* UserSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C5038D2837251900A750F6 /* UserSingleton.swift */; };
+		37CAFF3428396FE100A06FFB /* FollowingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CAFF3328396FE100A06FFB /* FollowingTableViewCell.swift */; };
+		37F440F2284A08A8008F20B3 /* SearchPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F440F1284A08A7008F20B3 /* SearchPopUpViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		372744952834BBB600154DC0 /* EmptyFeedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyFeedTableViewCell.swift; sourceTree = "<group>"; };
+		372744972835151900154DC0 /* PostCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCellTableViewCell.swift; sourceTree = "<group>"; };
+		374CC6F2281DF16300383139 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		374CC703281E076C00383139 /* MainFeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainFeedViewController.swift; sourceTree = "<group>"; };
+		374CC705281E078300383139 /* UploadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadViewController.swift; sourceTree = "<group>"; };
+		374CC707281E078F00383139 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		374CC709281E079B00383139 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		3752E1CA2839235F003D3FAE /* CirclesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CirclesViewController.swift; sourceTree = "<group>"; };
 		37550D05281598D90034BB63 /* Snapstory Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Snapstory Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		37550D08281598D90034BB63 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		37550D0A281598D90034BB63 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		37550D0C281598D90034BB63 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		37550D0C281598D90034BB63 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		37550D0F281598D90034BB63 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		37550D12281598D90034BB63 /* Snapstory_Demo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Snapstory_Demo.xcdatamodel; sourceTree = "<group>"; };
 		37550D14281598DB0034BB63 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		37550D17281598DB0034BB63 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		37550D19281598DB0034BB63 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3768427828404D6800C8156A /* ProfileEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditViewController.swift; sourceTree = "<group>"; };
+		37839213281F53FE002B7925 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		37839216281F572A002B7925 /* Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alerts.swift; sourceTree = "<group>"; };
+		378D477F282FE02100CECCAB /* PostLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostLocationViewController.swift; sourceTree = "<group>"; };
+		37AE0A9A282B9C4F00998BCF /* Picker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Picker.swift; sourceTree = "<group>"; };
+		37C5038D2837251900A750F6 /* UserSingleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSingleton.swift; sourceTree = "<group>"; };
+		37CAFF3328396FE100A06FFB /* FollowingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowingTableViewCell.swift; sourceTree = "<group>"; };
+		37F440F1284A08A7008F20B3 /* SearchPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPopUpViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,12 +68,91 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				374CC6FC281DF5B900383139 /* FirebaseFirestore in Frameworks */,
+				374CC6F8281DF5B900383139 /* FirebaseAuth in Frameworks */,
+				374CC700281DF5B900383139 /* FirebaseStorage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		374CC70B281E07A800383139 /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				37550D08281598D90034BB63 /* AppDelegate.swift */,
+				37550D0A281598D90034BB63 /* SceneDelegate.swift */,
+			);
+			path = Delegates;
+			sourceTree = "<group>";
+		};
+		374CC70C281E07BA00383139 /* View Controlers */ = {
+			isa = PBXGroup;
+			children = (
+				3752E1BE28391D3B003D3FAE /* Login-Register VC */,
+				3752E1BD28391D22003D3FAE /* Feed VC */,
+				3768427A284055DD00C8156A /* Upload */,
+				3752E1C22839228A003D3FAE /* Circles VC */,
+				3752E1C028391D69003D3FAE /* Profile VC */,
+				3752E1BF28391D5C003D3FAE /* Settings VC */,
+			);
+			path = "View Controlers";
+			sourceTree = "<group>";
+		};
+		3752E1BD28391D22003D3FAE /* Feed VC */ = {
+			isa = PBXGroup;
+			children = (
+				374CC703281E076C00383139 /* MainFeedViewController.swift */,
+				3752E1C128391DA0003D3FAE /* Cells */,
+			);
+			path = "Feed VC";
+			sourceTree = "<group>";
+		};
+		3752E1BE28391D3B003D3FAE /* Login-Register VC */ = {
+			isa = PBXGroup;
+			children = (
+				37550D0C281598D90034BB63 /* LoginViewController.swift */,
+				37839213281F53FE002B7925 /* RegisterViewController.swift */,
+			);
+			path = "Login-Register VC";
+			sourceTree = "<group>";
+		};
+		3752E1BF28391D5C003D3FAE /* Settings VC */ = {
+			isa = PBXGroup;
+			children = (
+				374CC709281E079B00383139 /* SettingsViewController.swift */,
+			);
+			path = "Settings VC";
+			sourceTree = "<group>";
+		};
+		3752E1C028391D69003D3FAE /* Profile VC */ = {
+			isa = PBXGroup;
+			children = (
+				374CC707281E078F00383139 /* ProfileViewController.swift */,
+				3768427828404D6800C8156A /* ProfileEditViewController.swift */,
+			);
+			path = "Profile VC";
+			sourceTree = "<group>";
+		};
+		3752E1C128391DA0003D3FAE /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				372744952834BBB600154DC0 /* EmptyFeedTableViewCell.swift */,
+				372744972835151900154DC0 /* PostCellTableViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		3752E1C22839228A003D3FAE /* Circles VC */ = {
+			isa = PBXGroup;
+			children = (
+				3752E1CA2839235F003D3FAE /* CirclesViewController.swift */,
+				37CAFF3328396FE100A06FFB /* FollowingTableViewCell.swift */,
+				37F440F1284A08A7008F20B3 /* SearchPopUpViewController.swift */,
+			);
+			path = "Circles VC";
+			sourceTree = "<group>";
+		};
 		37550CFC281598D90034BB63 = {
 			isa = PBXGroup;
 			children = (
@@ -58,16 +172,44 @@
 		37550D07281598D90034BB63 /* Snapstory Demo */ = {
 			isa = PBXGroup;
 			children = (
-				37550D08281598D90034BB63 /* AppDelegate.swift */,
-				37550D0A281598D90034BB63 /* SceneDelegate.swift */,
-				37550D0C281598D90034BB63 /* ViewController.swift */,
-				37550D0E281598D90034BB63 /* Main.storyboard */,
+				37839215281F5708002B7925 /* Models */,
+				374CC70B281E07A800383139 /* Delegates */,
+				374CC70C281E07BA00383139 /* View Controlers */,
+				375E62A7282B112D00D05AFC /* Storyboard */,
 				37550D14281598DB0034BB63 /* Assets.xcassets */,
 				37550D16281598DB0034BB63 /* LaunchScreen.storyboard */,
 				37550D19281598DB0034BB63 /* Info.plist */,
 				37550D11281598D90034BB63 /* Snapstory_Demo.xcdatamodeld */,
+				374CC6F2281DF16300383139 /* GoogleService-Info.plist */,
 			);
 			path = "Snapstory Demo";
+			sourceTree = "<group>";
+		};
+		375E62A7282B112D00D05AFC /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				37550D0E281598D90034BB63 /* Main.storyboard */,
+			);
+			path = Storyboard;
+			sourceTree = "<group>";
+		};
+		3768427A284055DD00C8156A /* Upload */ = {
+			isa = PBXGroup;
+			children = (
+				374CC705281E078300383139 /* UploadViewController.swift */,
+				378D477F282FE02100CECCAB /* PostLocationViewController.swift */,
+			);
+			path = Upload;
+			sourceTree = "<group>";
+		};
+		37839215281F5708002B7925 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				37839216281F572A002B7925 /* Alerts.swift */,
+				37AE0A9A282B9C4F00998BCF /* Picker.swift */,
+				37C5038D2837251900A750F6 /* UserSingleton.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -86,6 +228,11 @@
 			dependencies = (
 			);
 			name = "Snapstory Demo";
+			packageProductDependencies = (
+				374CC6F7281DF5B900383139 /* FirebaseAuth */,
+				374CC6FB281DF5B900383139 /* FirebaseFirestore */,
+				374CC6FF281DF5B900383139 /* FirebaseStorage */,
+			);
 			productName = "Snapstory Demo";
 			productReference = 37550D05281598D90034BB63 /* Snapstory Demo.app */;
 			productType = "com.apple.product-type.application";
@@ -102,6 +249,7 @@
 				TargetAttributes = {
 					37550D04281598D90034BB63 = {
 						CreatedOnToolsVersion = 13.3.1;
+						LastSwiftMigration = 1340;
 					};
 				};
 			};
@@ -114,6 +262,9 @@
 				Base,
 			);
 			mainGroup = 37550CFC281598D90034BB63;
+			packageReferences = (
+				374CC6F4281DF5B900383139 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = 37550D06281598D90034BB63 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -129,6 +280,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				37550D18281598DB0034BB63 /* LaunchScreen.storyboard in Resources */,
+				374CC6F3281DF16300383139 /* GoogleService-Info.plist in Resources */,
 				37550D15281598DB0034BB63 /* Assets.xcassets in Resources */,
 				37550D10281598D90034BB63 /* Main.storyboard in Resources */,
 			);
@@ -141,10 +293,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				37550D0D281598D90034BB63 /* ViewController.swift in Sources */,
+				37550D0D281598D90034BB63 /* LoginViewController.swift in Sources */,
+				374CC706281E078300383139 /* UploadViewController.swift in Sources */,
+				374CC704281E076C00383139 /* MainFeedViewController.swift in Sources */,
 				37550D09281598D90034BB63 /* AppDelegate.swift in Sources */,
+				372744962834BBB600154DC0 /* EmptyFeedTableViewCell.swift in Sources */,
+				3752E1CB2839235F003D3FAE /* CirclesViewController.swift in Sources */,
+				37F440F2284A08A8008F20B3 /* SearchPopUpViewController.swift in Sources */,
+				372744982835151900154DC0 /* PostCellTableViewCell.swift in Sources */,
 				37550D13281598D90034BB63 /* Snapstory_Demo.xcdatamodeld in Sources */,
+				37839214281F53FE002B7925 /* RegisterViewController.swift in Sources */,
+				37C5038E2837251900A750F6 /* UserSingleton.swift in Sources */,
+				3768427928404D6800C8156A /* ProfileEditViewController.swift in Sources */,
+				37839217281F572A002B7925 /* Alerts.swift in Sources */,
+				374CC708281E078F00383139 /* ProfileViewController.swift in Sources */,
 				37550D0B281598D90034BB63 /* SceneDelegate.swift in Sources */,
+				374CC70A281E079B00383139 /* SettingsViewController.swift in Sources */,
+				378D4780282FE02100CECCAB /* PostLocationViewController.swift in Sources */,
+				37CAFF3428396FE100A06FFB /* FollowingTableViewCell.swift in Sources */,
+				37AE0A9B282B9C4F00998BCF /* Picker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -226,7 +393,9 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_PRECOMPILE_BRIDGING_HEADER = NO;
 			};
 			name = Debug;
 		};
@@ -279,7 +448,9 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_PRECOMPILE_BRIDGING_HEADER = NO;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -289,9 +460,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = Z7FX9388V4;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Snapstory Demo/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -306,7 +478,9 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mertyilmaz.Snapstory-Demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -317,9 +491,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = Z7FX9388V4;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Snapstory Demo/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -334,6 +509,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mertyilmaz.Snapstory-Demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -362,6 +538,35 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		374CC6F4281DF5B900383139 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		374CC6F7281DF5B900383139 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 374CC6F4281DF5B900383139 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		374CC6FB281DF5B900383139 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 374CC6F4281DF5B900383139 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		374CC6FF281DF5B900383139 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 374CC6F4281DF5B900383139 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		37550D11281598D90034BB63 /* Snapstory_Demo.xcdatamodeld */ = {

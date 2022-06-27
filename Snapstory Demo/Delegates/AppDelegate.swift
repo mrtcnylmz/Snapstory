@@ -2,11 +2,12 @@
 //  AppDelegate.swift
 //  Snapstory Demo
 //
-//  Created by Mertcan Yılmaz on 24.04.2022.
+//  Created by Mertcan Yılmaz
 //
 
 import UIKit
 import CoreData
+import Firebase
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -14,6 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        FirebaseApp.configure()
         // Override point for customization after application launch.
         return true
     }
