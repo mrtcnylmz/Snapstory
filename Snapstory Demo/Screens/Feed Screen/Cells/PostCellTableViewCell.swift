@@ -41,22 +41,23 @@ class PostCellTableViewCell: UITableViewCell {
     // MARK: - 👍 postLikeButtonClicked
     @IBAction func postLikeButtonClicked(_ sender: Any) {
         let firebaseRef = firestore.collection("Posts").document(postID)
-        firebaseRef.getDocument { [self] snapshot, error in
+        firebaseRef.getDocument { [weak self] snapshot, error in
+            guard let self = self else { return }
             if error == nil{
                 let likes = (snapshot?.data()!["whoLiked"] as! [String]).count
-                if postLiked{
+                if self.postLiked{
                     firebaseRef.updateData(["likes" : likes-1])
-                    postLikeNumber.text = String(likes - 1) + " likes"
+                    self.postLikeNumber.text = String(likes - 1) + " likes"
                     firebaseRef.updateData(["whoLiked" : FieldValue.arrayRemove([UserSingleton.sharedUserInfo.userEmail])])
-                    postLiked = false
-                    postLikeButton.setImage(UIImage(systemName: "heart"), for: UIControl.State.normal)
+                    self.postLiked = false
+                    self.postLikeButton.setImage(UIImage(systemName: "heart"), for: UIControl.State.normal)
                 }else{
                     firebaseRef.updateData(["likes" : likes+1])
-                    postLikeNumber.text = String(likes + 1) + " likes"
+                    self.postLikeNumber.text = String(likes + 1) + " likes"
                     firebaseRef.updateData(["whoLiked" : FieldValue.arrayUnion([UserSingleton.sharedUserInfo.userEmail])])
                     //firebaseRef.setData(["whoLiked" : [UserSingleton.sharedUserInfo.userEmail]], merge: true)
-                    postLiked = true
-                    postLikeButton.setImage(UIImage(systemName: "heart.fill"), for: UIControl.State.normal)
+                    self.postLiked = true
+                    self.postLikeButton.setImage(UIImage(systemName: "heart.fill"), for: UIControl.State.normal)
                 }
             }
         }

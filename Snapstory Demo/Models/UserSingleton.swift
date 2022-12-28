@@ -25,17 +25,3 @@ class UserSingleton{
     private init(){
     }
 }
-
-//struct UserData: Codable{
-//    @DocumentID var id: String?
-//    var username: String
-//    var email: String
-//    var profilePictureURL: String
-//    var bio: String
-//    var followers: [String]
-//    var following: [String]
-//    var numberOfFollowing: Int
-//    var numberOfFollowers: Int
-//    var numberOfPosts: Int
-//    var posts: [String]
-//}

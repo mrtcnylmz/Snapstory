@@ -21,12 +21,12 @@ class SettingsViewController: UIViewController{
         do{
             try
             Auth.auth().signOut()
-            AlertMaker().makeAlert(on: self, title: "Success", message: "Sign Out Succesfull!", okFunc: { _ in
+            self.basicAlert(title: "Success", message: "Sign Out Succesfull!", buttonAction: { _ in
                 self.performSegue(withIdentifier: "toLoginViewController", sender: nil)
             })
         }
         catch {
-            AlertMaker().makeAlert(on: self, title: "Error", message: "Failed to Sign Out", okFunc: nil)
+            self.basicAlert(title: "Error", message: "Failed to Sign Out")
         }
     }
 }

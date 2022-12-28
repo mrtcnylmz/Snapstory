@@ -20,7 +20,7 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
@@ -32,8 +32,6 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewWillAppear(_ animated: Bool) {
         getUserInfo { done in
             if done{
-                print("done")
-                print(UserSingleton.sharedUserInfo.following)
                 self.getPostsFromFirebase()
             }
         }
@@ -47,20 +45,23 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
             firestore.collection("Posts")
                 .whereField("postOwnerEmail", in: queryArray)
                 .order(by: "date", descending: true)
-                .getDocuments { [self] snapshot, error in
-                if error == nil{
-                    firebasePostDataArray.removeAll()
+                .getDocuments { [weak self] snapshot, error in
+                    guard let self = self else { return }
+                    
+                    guard error == nil else {
+                        self.basicAlert(title: "Error", message: error!.localizedDescription)
+                        return
+                    }
+                    
+                    self.firebasePostDataArray.removeAll()
                     for document in snapshot!.documents{
                         var tmp = document.data()
                         tmp.updateValue(document.documentID, forKey: "postID")
-                    
-                        firebasePostDataArray.append(tmp)
+                        
+                        self.firebasePostDataArray.append(tmp)
                     }
-                    tableView.reloadData()
-                }else{
-                    AlertMaker().makeAlert(on: self, title: "Error", message: error!.localizedDescription, okFunc: nil)
+                    self.tableView.reloadData()
                 }
-            }
         }
     }
     
@@ -119,11 +120,11 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
     func getUserInfo(completion: @escaping (_ done: Bool) -> Void){
         var userData = [String: Any]()
         let currentUserQuary = firestore.collection("User_Infos").whereField("email", in: [auth.currentUser?.email as Any])
-        currentUserQuary.getDocuments { [self] snapshot, error in
+        currentUserQuary.getDocuments { [weak self] snapshot, error in
             for dat in snapshot!.documents{
                 userData = dat.data()
-                UserSingleton.sharedUserInfo.userEmail = (self.auth.currentUser?.email)!
-                UserSingleton.sharedUserInfo.username = (self.auth.currentUser?.displayName ?? "")
+                UserSingleton.sharedUserInfo.userEmail = (self?.auth.currentUser?.email)!
+                UserSingleton.sharedUserInfo.username = (self?.auth.currentUser?.displayName ?? "")
                 UserSingleton.sharedUserInfo.userBio = (userData["bio"] as? String) ?? ""
                 UserSingleton.sharedUserInfo.userProfilePictureURL = userData["profilePictureURL"] as! String
                 UserSingleton.sharedUserInfo.followerNumber = userData["numberOfFollowers"] as! Int
@@ -154,14 +155,14 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
     
     // MARK: - getUsername for posts
     func getUsername(email: String, completion: @escaping (_ username: String) -> Void){
-        firestore.collection("User_Infos").whereField("email", in: [email]).getDocuments { snaps, error in
-            if error == nil{
-                for posterUserData in snaps!.documents{
-                    let username = posterUserData.data()["username"] as! String
-                    completion(username)
-                }
-            }else{
-                AlertMaker().makeAlert(on: self, title: "error", message: error!.localizedDescription, okFunc: nil)
+        Firestore.firestore().collection("User_Infos").whereField("email", in: [email]).getDocuments { snaps, error in
+            guard error == nil else {
+                self.basicAlert(title: "Error", message: error!.localizedDescription)
+                return
+            }
+            guard snaps!.documents.isEmpty else {
+                completion(snaps!.documents.first!.data()["username"] as! String)
+                return
             }
         }
     }

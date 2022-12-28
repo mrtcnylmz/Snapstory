@@ -96,9 +96,9 @@ class UploadViewController: UIViewController, UIImagePickerControllerDelegate, U
         hideKeyb()
         if !hasDescription || !imagePicked{
             if !imagePicked{
-                AlertMaker().makeAlert(on: self, title: "⚠️", message: "Please pick a picture for your post.", okFunc: nil)
+                self.basicAlert(title: "⚠️", message: "Please pick a picture for your post.")
             }else{
-                AlertMaker().makeAlert(on: self, title: "⚠️", message: "Please type a description for your post.", okFunc: nil)
+                self.basicAlert(title: "⚠️", message: "Please type a description for your post.")
             }
         }else{
             let storage = Storage.storage()
@@ -126,9 +126,9 @@ class UploadViewController: UIViewController, UIImagePickerControllerDelegate, U
                                 ] as [String: Any]
                                 firestore.collection("Posts").addDocument(data: postDictionary) { error in
                                     if error != nil{
-                                        AlertMaker().makeAlert(on: self, title: "Error", message: error!.localizedDescription, okFunc: nil)
+                                        self.basicAlert(title: "Error", message: error!.localizedDescription)
                                     }else{
-                                        AlertMaker().makeAlert(on: self, title: "Done", message: "Successfully Shared!", okFunc: nil)
+                                        self.basicAlert(title: "Done", message: "Successfully Shared!")
                                         firestore.collection("User_Infos").whereField("email", in: [UserSingleton.sharedUserInfo.userEmail]).getDocuments { snap, error in
                                             snap!.documents.first?.reference.updateData(["numberOfPosts" : (snap!.documents.first?.data()["numberOfPosts"] as! Int) + 1])
                                         }
@@ -145,7 +145,7 @@ class UploadViewController: UIViewController, UIImagePickerControllerDelegate, U
                             }
                         }
                     }else {
-                        AlertMaker().makeAlert(on: self, title: "Error", message: error!.localizedDescription, okFunc: nil)
+                        self.basicAlert(title: "Error", message: error!.localizedDescription)
                     }
                 }
             }

@@ -76,7 +76,7 @@ class CirclesViewController: UIViewController, UITableViewDelegate, UITableViewD
         }else{
             firestore.collection("User_Infos").whereField("email", in: [emailTextField.text!]).getDocuments { quarySnapshpt, error in
                 if quarySnapshpt!.documents.isEmpty {
-                    AlertMaker().makeAlert(on: self, title: "Error", message: "User haven't been found, try again.", okFunc: nil)
+                    self.basicAlert(title: "Error", message: "User haven't been found, try again.")
                 }else{
                     self.searchedUser = quarySnapshpt!.documents.first!.data()
                     self.performSegue(withIdentifier: "toSearchedProfile", sender: nil)

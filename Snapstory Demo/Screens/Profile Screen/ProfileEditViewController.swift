@@ -64,15 +64,15 @@ class ProfileEditViewController: UIViewController, UIImagePickerControllerDelega
                                         navigationController?.popViewController(animated: true)
                                     }
                                     else {
-                                        AlertMaker().makeAlert(on: self, title: "Error", message: error!.localizedDescription, okFunc: nil)
+                                        self.basicAlert(title: "Error", message: error!.localizedDescription)
                                     }
                                 }
                             }else {
-                                AlertMaker().makeAlert(on: self, title: "Error", message: error!.localizedDescription, okFunc: nil)
+                                self.basicAlert(title: "Error", message: error!.localizedDescription)
                             }
                         }
                     }else {
-                        AlertMaker().makeAlert(on: self, title: "Error", message: error!.localizedDescription, okFunc: nil)
+                        self.basicAlert(title: "Error", message: error!.localizedDescription)
                     }
                 }
             }
@@ -88,7 +88,7 @@ class ProfileEditViewController: UIViewController, UIImagePickerControllerDelega
                     UserSingleton.sharedUserInfo.userBio = self.editUserBio.text
                     navigationController?.popViewController(animated: true)
                 }else {
-                    AlertMaker().makeAlert(on: self, title: "Error", message: error!.localizedDescription, okFunc: nil)
+                    self.basicAlert(title: "Error", message: error!.localizedDescription)
                 }
             }
         }

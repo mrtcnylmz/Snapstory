@@ -5,7 +5,6 @@
 //  Created by Mertcan Yılmaz
 //
 
-import Foundation
 import UIKit
 
 @objcMembers class ImagePicker{

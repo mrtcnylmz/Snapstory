@@ -41,13 +41,13 @@ class SearchPopUpViewController: UIViewController {
                     docRf!.updateData(["followers" : FieldValue.arrayUnion([UserSingleton.sharedUserInfo.userEmail])])
                     docRf!.updateData(["numberOfFollowers" : (querySnap?.documents.first?.data()["numberOfFollowers"] as! Int) + 1])
                     UserSingleton.sharedUserInfo.following = querySnap?.documents.first?.data()["following"] as! Array<String>
-                    AlertMaker().makeAlert(on: self, title: "Success", message: "You are now following \((self.recievedData["username"] as! String)).", okFunc: nil)
+                    self.basicAlert(title: "Success", message: "You are now following \((self.recievedData["username"] as! String)).")
                     
                 }
             }else{
                 self.followButton.isEnabled = false
                 self.followButton.configuration?.title = "Following"
-                AlertMaker().makeAlert(on: self, title: "Error", message: "You already follow this user.", okFunc: nil)
+                self.basicAlert(title: "Error", message: "You already follow this user.")
             }
         }
     }
