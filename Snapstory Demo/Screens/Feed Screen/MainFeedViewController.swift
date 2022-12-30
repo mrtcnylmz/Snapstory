@@ -12,10 +12,13 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var emptyFeedCell: UIView!
     
-    let firestore = Firestore.firestore()
-    let auth = Auth.auth()
-    var firebasePostDataArray : [[String:Any]] = []
     var perPostUsername: String = ""
+    var firebasePostDataArray = [[String:Any]]() {
+        didSet{ self.tableView.reloadData() }
+    }
+    var currentUser : User? {
+        didSet{ self.getPostsFromFirebase() }
+    }
     
     // MARK: - viewDidLoad
     override func viewDidLoad() {
@@ -23,120 +26,65 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        
-        getUserInfo { done in
-        }
     }
     
-    // MARK: - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
-        getUserInfo { done in
-            if done{
-                self.getPostsFromFirebase()
+        Firebase().getUserInfo(id: auth.currentUser!.uid) { [weak self] user, error in
+            guard let self = self else { return }
+            guard error == nil else {
+                self.basicAlert(title: "Error", message: error!.localizedDescription)
+                return
             }
+            self.currentUser = user
         }
     }
     
     // MARK: - getPostsFromFirebase
     func getPostsFromFirebase(){
-        if !(UserSingleton.sharedUserInfo.following.isEmpty) || UserSingleton.sharedUserInfo.postNumber != 0{
-            var queryArray = UserSingleton.sharedUserInfo.following
-            queryArray.append(UserSingleton.sharedUserInfo.userEmail)
-            firestore.collection("Posts")
-                .whereField("postOwnerEmail", in: queryArray)
-                .order(by: "date", descending: true)
-                .getDocuments { [weak self] snapshot, error in
-                    guard let self = self else { return }
-                    
-                    guard error == nil else {
-                        self.basicAlert(title: "Error", message: error!.localizedDescription)
-                        return
-                    }
-                    
-                    self.firebasePostDataArray.removeAll()
-                    for document in snapshot!.documents{
-                        var tmp = document.data()
-                        tmp.updateValue(document.documentID, forKey: "postID")
-                        
-                        self.firebasePostDataArray.append(tmp)
-                    }
-                    self.tableView.reloadData()
+        if !(currentUser!.following.isEmpty) || currentUser!.postNumber != 0 {
+            var queryArray = currentUser!.following
+            queryArray.append(currentUser!.userEmail)
+            Firebase().getFeedPosts(emailArray: queryArray) { [weak self] postArray, error in
+                guard let self = self else { return }
+                guard error == nil else {
+                    self.basicAlert(title: "Error", message: error!.localizedDescription)
+                    return
                 }
+                self.firebasePostDataArray = postArray!
+            }
         }
     }
     
     // MARK: - numberOfRowsInSection
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if firebasePostDataArray.count > 0{
-            print(firebasePostDataArray.count," v2")
-            return firebasePostDataArray.count
-        }
-        return 1
+        firebasePostDataArray.count > 0 ? firebasePostDataArray.count : 1
     }
     
     // MARK: - cellForRowAt
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if firebasePostDataArray.isEmpty{
-            let cell = tableView.dequeueReusableCell(withIdentifier: "emptyTableCell") as! EmptyFeedTableViewCell
-            return cell
+            return tableView.dequeueReusableCell(withIdentifier: "emptyTableCell") as! EmptyFeedTableViewCell
         }else{
             let cell = tableView.dequeueReusableCell(withIdentifier: "postCell") as! PostCellTableViewCell
-            var postProfilePictureURL = ""
-            firestore.collection("User_Infos").whereField("email", in: [(firebasePostDataArray[indexPath.row]["postOwnerEmail"] as? String)!]).getDocuments { quarySnapshpt, error in
-                if quarySnapshpt!.documents.isEmpty {
-                    //
-                }else{
-                    postProfilePictureURL = quarySnapshpt!.documents.first!.data()["profilePictureURL"] as! String
-                    let data = try? Data(contentsOf: URL(string: postProfilePictureURL)!)
-                    cell.postProfilePicture.image = UIImage(data: data!)
+            Firebase().getUserInfo(id: firebasePostDataArray[indexPath.row]["postOwnerId"] as! String, complation: { user, error in
+                guard error == nil else {
+                    self.basicAlert(title: "Error", message: error!.localizedDescription)
+                    return
                 }
-            }
-            
+                cell.postProfilePicture.downloadImage(from: URL(string: user!.userProfilePictureURL))
+                cell.postUsername.text = user!.username
+            })
             cell.postID = ((firebasePostDataArray[indexPath.row]["postID"] as! String))
             cell.postLiked = (firebasePostDataArray[indexPath.row]["whoLiked"] as! Array<String>).contains(auth.currentUser!.email!)
-            getUsername(email: firebasePostDataArray[indexPath.row]["postOwnerEmail"] as! String, completion: { username in
-                cell.postUsername.text = username
-            })
-            //cell.postUsername.text = (firebasePostDataArray[indexPath.row]["postOwnerUsername"] as? String)
             cell.postDescription.text = (firebasePostDataArray[indexPath.row]["imageDescription"] as? String)
             cell.postLocation.text = (firebasePostDataArray[indexPath.row]["postLocation"] as? String)
-            cell.postLikeNumber.text = "\(String(firebasePostDataArray[indexPath.row]["likes"] as! Int)) likes"
+            cell.postLikes = firebasePostDataArray[indexPath.row]["likes"] as! Int
             cell.postUserEmail.text = (firebasePostDataArray[indexPath.row]["postOwnerEmail"] as? String)
             let postDate = firebasePostDataArray[indexPath.row]["date"] as! Timestamp
             let postSince = Int(postDate.dateValue().distance(to: Date.now))
             cell.postDate.text = sinceDate(secondsPassed: postSince)
-            let postImgRef = Storage.storage().reference(forURL: firebasePostDataArray[indexPath.row]["imageURL"] as! String)
-            postImgRef.getData(maxSize: 99999999999) { data, error in
-                if error == nil{
-                    cell.postImageView.image = UIImage(data: data!)
-                }
-            }
-            
+            cell.postImageView.downloadImage(from: URL(string: firebasePostDataArray[indexPath.row]["imageURL"] as! String))
             return cell
-        }
-    }
-    
-    // MARK: - getUserInfo
-    func getUserInfo(completion: @escaping (_ done: Bool) -> Void){
-        var userData = [String: Any]()
-        let currentUserQuary = firestore.collection("User_Infos").whereField("email", in: [auth.currentUser?.email as Any])
-        currentUserQuary.getDocuments { [weak self] snapshot, error in
-            for dat in snapshot!.documents{
-                userData = dat.data()
-                UserSingleton.sharedUserInfo.userEmail = (self?.auth.currentUser?.email)!
-                UserSingleton.sharedUserInfo.username = (self?.auth.currentUser?.displayName ?? "")
-                UserSingleton.sharedUserInfo.userBio = (userData["bio"] as? String) ?? ""
-                UserSingleton.sharedUserInfo.userProfilePictureURL = userData["profilePictureURL"] as! String
-                UserSingleton.sharedUserInfo.followerNumber = userData["numberOfFollowers"] as! Int
-                UserSingleton.sharedUserInfo.followingNumber = userData["numberOfFollowing"] as! Int
-                UserSingleton.sharedUserInfo.postNumber = userData["numberOfPosts"] as! Int
-                UserSingleton.sharedUserInfo.followers = userData["followers"] as! Array<String>
-                UserSingleton.sharedUserInfo.following = userData["following"] as! Array<String>
-                let data = try? Data(contentsOf: URL(string: userData["profilePictureURL"] as! String)!)
-                UserSingleton.sharedUserInfo.userProfilePicture = UIImage(data: data!)
-                let done = true
-                completion(done)
-            }
         }
     }
     
@@ -153,17 +101,37 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
-    // MARK: - getUsername for posts
-    func getUsername(email: String, completion: @escaping (_ username: String) -> Void){
-        Firestore.firestore().collection("User_Infos").whereField("email", in: [email]).getDocuments { snaps, error in
-            guard error == nil else {
-                self.basicAlert(title: "Error", message: error!.localizedDescription)
-                return
-            }
-            guard snaps!.documents.isEmpty else {
-                completion(snaps!.documents.first!.data()["username"] as! String)
-                return
-            }
-        }
-    }
+//    // MARK: - getUsername for posts /w email
+//    func getUsername(email: String, completion: @escaping (_ username: String) -> Void){
+//        Firestore.firestore().collection("Users").whereField("email", in: [email]).getDocuments { snaps, error in
+//            guard error == nil else {
+//                self.basicAlert(title: "Error", message: error!.localizedDescription)
+//                return
+//            }
+//            guard snaps!.documents.isEmpty else {
+//                completion(snaps!.documents.first!.data()["username"] as! String)
+//                return
+//            }
+//        }
+//    }
+//
+//    // MARK: - getUsername for posts /w id
+//    func getUsername(id: String, completion: @escaping (_ username: String) -> Void){
+//        Firestore.firestore().collection("Users").document(id).getDocument { snapshot, error in
+//            guard error == nil else {
+//                self.basicAlert(title: "Error", message: error!.localizedDescription)
+//                return
+//            }
+//            completion(snapshot!.data()!["username"] as! String)
+//        }
+//    }
+    
+//    // MARK: - GetUserData
+//    func getCurrentUser() -> User? {
+//        guard let data = UserDefaults.standard.data(forKey: "currentUserInfo") else {
+//            fatalError("Failed to get current user")
+//        }
+//        let user = try! PropertyListDecoder().decode(User.self, from: data)
+//        return user
+//    }
 }

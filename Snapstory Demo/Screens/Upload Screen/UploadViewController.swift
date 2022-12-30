@@ -36,8 +36,6 @@ class UploadViewController: UIViewController, UIImagePickerControllerDelegate, U
         descriptionTextView.textColor = UIColor.lightGray
         userProfilePictureImageView.image = UserSingleton.sharedUserInfo.userProfilePicture
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Share", style: UIBarButtonItem.Style.done, target: self, action: #selector(shareButtonClicked))
-        let hideKeyboardTapRec = UITapGestureRecognizer(target: self, action: #selector(hideKeyb))
-        view.addGestureRecognizer(hideKeyboardTapRec)
         let imagePickerTapRec = UITapGestureRecognizer(target: self, action: #selector(imagePicker))
         imageView.addGestureRecognizer(imagePickerTapRec)
     }
@@ -74,11 +72,6 @@ class UploadViewController: UIViewController, UIImagePickerControllerDelegate, U
         self.dismiss(animated: true)
     }
 
-    // MARK: - hideKeyb
-    @objc func hideKeyb(){
-        view.endEditing(true)
-    }
-
     // MARK: - @objc imagePicker
     @objc func imagePicker(){
         ImagePicker().promptPhoto(on: self)
@@ -93,7 +86,7 @@ class UploadViewController: UIViewController, UIImagePickerControllerDelegate, U
     
     //MARK: - shareButtonClicked
     @objc func shareButtonClicked(){
-        hideKeyb()
+        view.endEditing(true)
         if !hasDescription || !imagePicked{
             if !imagePicked{
                 self.basicAlert(title: "⚠️", message: "Please pick a picture for your post.")
@@ -114,22 +107,25 @@ class UploadViewController: UIViewController, UIImagePickerControllerDelegate, U
                             if error == nil{
                                 let imageUrl = url?.absoluteString
                                 let firestore = Firestore.firestore()
+                                
                                 let postDictionary = [
                                     "imageURL": imageUrl!,
                                     "imageName": "\(uuid).jpg",
                                     "imageDescription": self.descriptionTextView.text!,
-                                    "postOwnerEmail": UserSingleton.sharedUserInfo.userEmail,
+                                    "postOwnerEmail": auth.currentUser!.email!,
+                                    "postOwnerId": auth.currentUser!.uid,
                                     "date": FieldValue.serverTimestamp(),
                                     "likes": 0,
                                     "postLocation": self.locationName,
                                     "whoLiked": []
                                 ] as [String: Any]
+                                
                                 firestore.collection("Posts").addDocument(data: postDictionary) { error in
                                     if error != nil{
                                         self.basicAlert(title: "Error", message: error!.localizedDescription)
                                     }else{
                                         self.basicAlert(title: "Done", message: "Successfully Shared!")
-                                        firestore.collection("User_Infos").whereField("email", in: [UserSingleton.sharedUserInfo.userEmail]).getDocuments { snap, error in
+                                        firestore.collection("Users").whereField("email", in: [auth.currentUser!.email!]).getDocuments { snap, error in
                                             snap!.documents.first?.reference.updateData(["numberOfPosts" : (snap!.documents.first?.data()["numberOfPosts"] as! Int) + 1])
                                         }
                                         self.imageView.image = UIImage(systemName: "camera.viewfinder")

@@ -13,7 +13,7 @@ struct UserViewModel {
 
 extension UserViewModel {
     var id: String {
-        return self.user.id!
+        return self.user.id
     }
     
     var username: String {

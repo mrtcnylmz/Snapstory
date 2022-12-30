@@ -31,4 +31,12 @@ extension UIViewController {
         aView?.removeFromSuperview()
         aView = nil
     }
+    
+    //MARK: - Dismiss Keyboard When Tapped
+    func dismissKeyboardWhenTapped() {
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyb)))
+    }
+    @objc private func hideKeyb(){
+        view.endEditing(true)
+    }
 }

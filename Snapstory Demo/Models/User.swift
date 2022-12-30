@@ -11,7 +11,7 @@ import FirebaseFirestoreSwift
 
 // MARK: - User
 struct User: Codable {
-    @DocumentID var id: String?
+    let id: String
     let username: String
     let userEmail: String
     let userBio: String
