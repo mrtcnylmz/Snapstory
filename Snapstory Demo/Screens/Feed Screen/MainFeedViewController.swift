@@ -100,38 +100,4 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
             return "\(sp % 60) seconds ago"
         }
     }
-    
-//    // MARK: - getUsername for posts /w email
-//    func getUsername(email: String, completion: @escaping (_ username: String) -> Void){
-//        Firestore.firestore().collection("Users").whereField("email", in: [email]).getDocuments { snaps, error in
-//            guard error == nil else {
-//                self.basicAlert(title: "Error", message: error!.localizedDescription)
-//                return
-//            }
-//            guard snaps!.documents.isEmpty else {
-//                completion(snaps!.documents.first!.data()["username"] as! String)
-//                return
-//            }
-//        }
-//    }
-//
-//    // MARK: - getUsername for posts /w id
-//    func getUsername(id: String, completion: @escaping (_ username: String) -> Void){
-//        Firestore.firestore().collection("Users").document(id).getDocument { snapshot, error in
-//            guard error == nil else {
-//                self.basicAlert(title: "Error", message: error!.localizedDescription)
-//                return
-//            }
-//            completion(snapshot!.data()!["username"] as! String)
-//        }
-//    }
-    
-//    // MARK: - GetUserData
-//    func getCurrentUser() -> User? {
-//        guard let data = UserDefaults.standard.data(forKey: "currentUserInfo") else {
-//            fatalError("Failed to get current user")
-//        }
-//        let user = try! PropertyListDecoder().decode(User.self, from: data)
-//        return user
-//    }
 }

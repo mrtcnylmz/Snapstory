@@ -39,6 +39,7 @@
 		37C5038E2837251900A750F6 /* UserSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C5038D2837251900A750F6 /* UserSingleton.swift */; };
 		37CAFF3428396FE100A06FFB /* FollowingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CAFF3328396FE100A06FFB /* FollowingTableViewCell.swift */; };
 		37DA8A6D295F74ED009F12DD /* UIImageView+Download.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DA8A6C295F74ED009F12DD /* UIImageView+Download.swift */; };
+		37E2C2962962466B00859C9E /* PostLocationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E2C2952962466B00859C9E /* PostLocationDelegate.swift */; };
 		37F440F2284A08A8008F20B3 /* SearchPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F440F1284A08A7008F20B3 /* SearchPopUpViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -73,6 +74,7 @@
 		37C5038D2837251900A750F6 /* UserSingleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSingleton.swift; sourceTree = "<group>"; };
 		37CAFF3328396FE100A06FFB /* FollowingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowingTableViewCell.swift; sourceTree = "<group>"; };
 		37DA8A6C295F74ED009F12DD /* UIImageView+Download.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+Download.swift"; sourceTree = "<group>"; };
+		37E2C2952962466B00859C9E /* PostLocationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostLocationDelegate.swift; sourceTree = "<group>"; };
 		37F440F1284A08A7008F20B3 /* SearchPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPopUpViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -96,6 +98,7 @@
 			children = (
 				37550D08281598D90034BB63 /* AppDelegate.swift */,
 				37550D0A281598D90034BB63 /* SceneDelegate.swift */,
+				37E2C2952962466B00859C9E /* PostLocationDelegate.swift */,
 			);
 			path = Delegates;
 			sourceTree = "<group>";
@@ -387,6 +390,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				37550D0D281598D90034BB63 /* LoginViewController.swift in Sources */,
+				37E2C2962962466B00859C9E /* PostLocationDelegate.swift in Sources */,
 				374CC706281E078300383139 /* UploadViewController.swift in Sources */,
 				374CC704281E076C00383139 /* MainFeedViewController.swift in Sources */,
 				379D930E2959B74F00DE8085 /* UIViewController+Alerts.swift in Sources */,

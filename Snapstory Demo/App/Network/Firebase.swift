@@ -96,10 +96,10 @@ class Firebase {
     
     //MARK: - Profile Edit
     func profileChange(username: String?, photoUrl: String?, complation: @escaping (Error?) -> ()) {
-        let changeRequest = auth.currentUser?.createProfileChangeRequest()
-        if let username = username { changeRequest?.displayName = username }
-        if let photoUrl = photoUrl { changeRequest?.photoURL = URL(string: photoUrl) }
-        changeRequest?.commitChanges { error in
+        let changeRequest = auth.currentUser!.createProfileChangeRequest()
+        if let username = username { changeRequest.displayName = username }
+        if let photoUrl = photoUrl { changeRequest.photoURL = URL(string: photoUrl) }
+        changeRequest.commitChanges { error in
             complation(error)
         }
     }

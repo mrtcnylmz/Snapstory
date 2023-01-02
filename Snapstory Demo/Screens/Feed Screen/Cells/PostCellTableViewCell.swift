@@ -4,6 +4,7 @@
 //
 //  Created by Mertcan Yılmaz
 //
+//  //TODO: prep postId didset to fill cell to use cell template elsewhere
 
 import UIKit
 import Firebase
@@ -53,24 +54,17 @@ class PostCellTableViewCell: UITableViewCell {
             guard error == nil else {
                 fatalError("Network error.")
             }
-            //let likes = (snapshot!.data()!["whoLiked"] as! [String]).count
             if self.postLiked{
                 firebaseRef.updateData(["likes" : self.postLikes-1])
                 self.postLikes -= 1
-                //self.postLikeNumber.text = String(likes - 1) + " likes"
                 firebaseRef.updateData(["whoLiked" : FieldValue.arrayRemove([auth.currentUser!.email!])])
                 self.postLiked = false
-                //self.postLikeButton.setImage(UIImage(systemName: "heart"), for: UIControl.State.normal)
             }else{
                 firebaseRef.updateData(["likes" : self.postLikes+1])
                 self.postLikes += 1
-                //self.postLikeNumber.text = String(self.postLikes + 1) + " likes"
                 firebaseRef.updateData(["whoLiked" : FieldValue.arrayUnion([auth.currentUser!.email!])])
-                //firebaseRef.setData(["whoLiked" : [UserSingleton.sharedUserInfo.userEmail]], merge: true)
                 self.postLiked = true
-                //self.postLikeButton.setImage(UIImage(systemName: "heart.fill"), for: UIControl.State.normal)
             }
-            
         }
     }
 }
