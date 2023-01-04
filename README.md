@@ -5,12 +5,11 @@ A social media app made with UIKit on Swift using Firebase, designed with MVC ar
 ## General Information
 - Users may signup on this social media project and share posts.
 - Users may follow other users, see other accounts or see who follows them back.
-- User can post photos with descriptions and post locations.
-- User have detailed profile pages and can edit their infos, bio's or profile pictures .
+- Users can post photos with descriptions and post locations.
+- Users have detailed profile pages and can edit their infos, bio's or profile pictures .
 - Users also have a profile page with some options.
 
 ## Features
-List the ready features here:
 - User Register And Login
 - Feed Page
 - Upload Page with Photo, Photo Description and Post Location
