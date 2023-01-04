@@ -30,20 +30,7 @@ class LoginViewController: UIViewController {
                 self.basicAlert(title: "Error", message: error!.localizedDescription)
                 return
             }
-            Firebase().getUserInfo(id: authResult!.user.uid) { user, error in
-                guard error == nil else {
-                    try? auth.signOut()
-                    self.basicAlert(title: "Error", message: error!.localizedDescription)
-                    return
-                }
-                guard let data = try? PropertyListEncoder().encode(user) else {
-                    try? auth.signOut()
-                    self.basicAlert(title: "Error", message: "Error setting user info.")
-                    return
-                }
-                UserDefaults.standard.set(data, forKey: "currentUserInfo")
-                self.performSegue(withIdentifier: "toTabBar", sender: nil)
-            }
+            self.performSegue(withIdentifier: "toTabBar", sender: nil)
         }
     }
     

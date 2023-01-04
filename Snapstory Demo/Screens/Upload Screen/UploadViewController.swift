@@ -16,6 +16,8 @@ import FirebaseStorage
 class UploadViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate, PostLocationDelegate{
     
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var usernameLabel: UILabel!
+    @IBOutlet weak var userMailLabel: UILabel!
     @IBOutlet weak var descriptionTextView: UITextView!
     @IBOutlet weak var addLocationButton: UIButton!
     @IBOutlet weak var userProfilePictureImageView: UIImageView!
@@ -35,14 +37,16 @@ class UploadViewController: UIViewController, UIImagePickerControllerDelegate, U
         
         self.dismissKeyboardWhenTapped()
         
-        navigationItem.title = "New Post"
-        
-        userProfilePictureImageView.layer.cornerRadius = 10.0
-        userProfilePictureImageView.layer.borderWidth = 0.1
-        imageView.layer.cornerRadius = 10.0
-        imageView.layer.borderWidth = 0.1
-        descriptionTextView.layer.cornerRadius = 10.0
-        descriptionTextView.layer.borderWidth = 0.1
+        userProfilePictureImageView.layer.cornerRadius = 7.5
+        userProfilePictureImageView.layer.borderWidth = 0.2
+        userProfilePictureImageView.layer.borderColor = UIColor.systemIndigo.cgColor
+        descriptionTextView.layer.cornerRadius = 7.5
+        descriptionTextView.layer.borderWidth = 0.2
+        descriptionTextView.layer.borderColor = UIColor.systemIndigo.cgColor
+        imageView.layer.cornerRadius = 7.5
+        imageView.layer.borderWidth = 0.2
+        imageView.layer.borderColor = UIColor.systemIndigo.cgColor
+
         imageView.isUserInteractionEnabled = true
         imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(imagePicker)))
         
@@ -50,8 +54,18 @@ class UploadViewController: UIViewController, UIImagePickerControllerDelegate, U
         descriptionTextView.text = "Describe your post."
         descriptionTextView.textColor = UIColor.lightGray
         
-        userProfilePictureImageView.downloadImage(from: auth.currentUser!.photoURL)
+
+        usernameLabel.text = auth.currentUser?.displayName
+        userMailLabel.text = auth.currentUser?.email
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Share", style: .done, target: self, action: #selector(shareButtonClicked))
+        navigationItem.rightBarButtonItem?.tintColor = .systemIndigo
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        if let currentUser = UserDefaults.standard.object(forKey: "currentUser") as? Data {
+            if let currentUser = try? JSONDecoder().decode(User.self, from: currentUser) {
+                userProfilePictureImageView.image = UIImage(data: currentUser.userProfilePictureData)
+            }
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {

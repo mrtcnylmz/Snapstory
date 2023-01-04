@@ -14,12 +14,12 @@ import UIKit
         imagePicker.delegate = (controller as! UIImagePickerControllerDelegate & UINavigationControllerDelegate)
         let cameraAction = UIAlertAction(title: "Camera", style: .default, handler: presentCamera)
         let libraryAction = UIAlertAction(title: "Photo Library", style: .default, handler: presentLibrary)
-        let albumsAction = UIAlertAction(title: "Saved Albums", style: .default, handler: presentAlbums)
+        //let albumsAction = UIAlertAction(title: "Saved Albums", style: .default, handler: presentAlbums)
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         imagePicker.allowsEditing = true
         prompt.addAction(cameraAction)
         prompt.addAction(libraryAction)
-        prompt.addAction(albumsAction)
+        //prompt.addAction(albumsAction)
         prompt.addAction(cancelAction)
         controller.present(prompt, animated: true, completion: nil)
 
@@ -31,9 +31,9 @@ import UIKit
             imagePicker.sourceType = .photoLibrary
             controller.present(imagePicker, animated: true)
         }
-        func presentAlbums(_ _: UIAlertAction) {
-            imagePicker.sourceType = .savedPhotosAlbum
-            controller.present(imagePicker, animated: true)
-        }
+//        func presentAlbums(_ _: UIAlertAction) {
+//            imagePicker.sourceType = .savedPhotosAlbum
+//            controller.present(imagePicker, animated: true)
+//        }
     }
 }

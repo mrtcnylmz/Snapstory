@@ -5,7 +5,6 @@
 //  Created by Mertcan Yılmaz on 28.12.2022.
 //
 
-import Foundation
 import Firebase
 import UIKit
 
@@ -16,6 +15,34 @@ let storage = Storage.storage()
 let defaultPhotoURL = URL(string: "https://firebasestorage.googleapis.com/v0/b/snapstory-1fcce.appspot.com/o/media%2F360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpeg?alt=media&token=bd694d5e-c524-4142-8df6-b31f00d25c20")
 
 class Firebase {
+    
+    //MARK: - User Listener
+    func getCurrentUser(complation: @escaping (_ user: User) -> ()) {
+        firestore.collection("Users").document(auth.currentUser!.uid).addSnapshotListener { documentSnapshot, error in
+            guard error == nil else { return }
+            guard let document = documentSnapshot, let data = document.data() else {
+                print("Error fetching document.")
+                return
+            }
+            let user = User(id: auth.currentUser!.uid,
+                            username: auth.currentUser!.displayName!,
+                            userEmail: auth.currentUser!.email!,
+                            userBio: data["bio"] as! String,
+                            postNumber: data["numberOfPosts"] as! Int,
+                            followerNumber: data["numberOfFollowers"] as! Int,
+                            followingNumber: data["numberOfFollowing"] as! Int,
+                            userProfilePictureData: try! Data(contentsOf: URL(string: data["profilePictureURL"] as! String)!),
+                            userProfilePictureURL: data["profilePictureURL"] as! String,
+                            followers: data["followers"] as! Array<String>,
+                            following: data["following"] as! Array<String>)
+            
+            if let encoded = try? JSONEncoder().encode(user) {
+                UserDefaults.standard.set(encoded, forKey: "currentUser")
+            }
+            print(user)
+            complation(user)
+        }
+    }
     
     //MARK: - Get from storage
     func getFromStorage(url: String, complation: @escaping (Data?, Error?) -> Void) {
@@ -106,43 +133,59 @@ class Firebase {
     
     //MARK: - getUserInfo
     func getUserInfo(id: String, complation: @escaping (User?, Error?) -> Void) {
-        let docRef = firestore.collection("Users").document(id)
-        docRef.getDocument { document, error in
+        firestore.collection("Users").document(id).getDocument { document, error in
             guard error == nil else {
                 complation(nil, error)
                 return
             }
-            guard document!.exists, let document = document else {
-                complation(nil, NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey : "Database error."]))
+            guard let document = document, let data = document.data() else {
+                complation(nil, NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey : "Nil Document."]))
                 return
             }
-            
-            let id = document.documentID
-            let data = document.data()
-            
-            let username = data?["username"] as? String ?? ""
-            let userEmail = data?["email"] as? String ?? ""
-            let userBio = data?["bio"] as? String ?? ""
-            let postNumber = data?["numberOfPosts"] as! Int
-            let followerNumber = data?["numberOfFollowers"] as! Int
-            let followingNumber = data?["numberOfFollowing"] as! Int
-            let userProfilePictureURL = data?["profilePictureURL"] as! String
-            let userProfilePictureData = try? Data(contentsOf: URL(string: userProfilePictureURL)!)
-            let followers = data?["followers"] as! Array<String>
-            let following = data?["following"] as! Array<String>
-            
-            let user = User(id: id,
-                            username: username,
-                            userEmail: userEmail,
-                            userBio: userBio,
-                            postNumber: postNumber,
-                            followerNumber: followerNumber,
-                            followingNumber: followingNumber,
-                            userProfilePictureData: userProfilePictureData!,
-                            userProfilePictureURL: userProfilePictureURL,
-                            followers: followers,
-                            following: following)
-            
+            let user = User(id: document.documentID,
+                            username: data["username"] as! String,
+                            userEmail: data["email"] as! String,
+                            userBio: data["bio"] as! String,
+                            postNumber: data["numberOfPosts"] as! Int,
+                            followerNumber: data["numberOfFollowers"] as! Int,
+                            followingNumber: data["numberOfFollowing"] as! Int,
+                            userProfilePictureData: try! Data(contentsOf: URL(string: data["profilePictureURL"] as! String)!),
+                            userProfilePictureURL: data["profilePictureURL"] as! String,
+                            followers: data["followers"] as! Array<String>,
+                            following: data["following"] as! Array<String>)
+            complation(user, nil)
+        }
+    }
+    
+    //MARK: - getUserInfo
+    func getUserInfo(email: String, complation: @escaping (User?, Error?) -> Void) {
+        firestore.collection("Users").whereField("email", in: [email]).getDocuments { snapshot, error in
+            guard error == nil else { return }
+            let userData = snapshot!.documents.first!.data()
+            let userRef = snapshot!.documents.first!.reference
+        }
+        
+        
+        firestore.collection("Users").document("id").getDocument { document, error in
+            guard error == nil else {
+                complation(nil, error)
+                return
+            }
+            guard let document = document, let data = document.data() else {
+                complation(nil, NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey : "Nil Document."]))
+                return
+            }
+            let user = User(id: document.documentID,
+                            username: data["username"] as! String,
+                            userEmail: data["email"] as! String,
+                            userBio: data["bio"] as! String,
+                            postNumber: data["numberOfPosts"] as! Int,
+                            followerNumber: data["numberOfFollowers"] as! Int,
+                            followingNumber: data["numberOfFollowing"] as! Int,
+                            userProfilePictureData: try! Data(contentsOf: URL(string: data["profilePictureURL"] as! String)!),
+                            userProfilePictureURL: data["profilePictureURL"] as! String,
+                            followers: data["followers"] as! Array<String>,
+                            following: data["following"] as! Array<String>)
             complation(user, nil)
         }
     }
@@ -151,6 +194,40 @@ class Firebase {
     func getFeedPosts(emailArray: [String], complation: @escaping (_ postArray: [[String : Any]]?, Error?) -> ()) {
         var postArray = [[String : Any]]()
         firestore.collection("Posts").whereField("postOwnerEmail", in: emailArray).order(by: "date", descending: true).getDocuments { snapshot, error in
+            guard error == nil else {
+                complation(nil, error)
+                return
+            }
+            for document in snapshot!.documents{
+                var post = document.data()
+                post.updateValue(document.documentID, forKey: "postID")
+                postArray.append(post)
+            }
+            complation(postArray, nil)
+        }
+    }
+    
+    //MARK: Get Posts w/ Id
+    func getFeedPosts(idArray: [String], complation: @escaping (_ postArray: [[String : Any]]?, Error?) -> ()) {
+        var postArray = [[String : Any]]()
+        firestore.collection("Posts").whereField("postOwnerId", in: idArray).order(by: "date", descending: true).getDocuments { snapshot, error in
+            guard error == nil else {
+                complation(nil, error)
+                return
+            }
+            for document in snapshot!.documents{
+                var post = document.data()
+                post.updateValue(document.documentID, forKey: "postID")
+                postArray.append(post)
+            }
+            complation(postArray, nil)
+        }
+    }
+    
+    //MARK: Get Posts w/ Id
+    func getUserPosts(userId: String, complation: @escaping (_ postArray: [[String : Any]]?, Error?) -> ()) {
+        var postArray = [[String : Any]]()
+        firestore.collection("Posts").whereField("postOwnerId", in: [userId]).order(by: "date", descending: true).getDocuments { snapshot, error in
             guard error == nil else {
                 complation(nil, error)
                 return

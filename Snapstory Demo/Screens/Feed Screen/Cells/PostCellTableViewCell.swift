@@ -44,6 +44,10 @@ class PostCellTableViewCell: UITableViewCell {
     // MARK: - setSelected
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+        
+        postProfilePicture.layer.cornerRadius = CGFloat(7.5)
+        postImageView.layer.cornerRadius = CGFloat(7.5)
+        
     }
     
     // MARK: - 👍 postLikeButtonClicked

@@ -1,14 +1,13 @@
 //
-//  ProfileViewController.swift
+//  UserProfileViewController.swift
 //  Snapstory Demo
 //
-//  Created by Mertcan Yılmaz
+//  Created by Mertcan Yılmaz on 4.01.2023.
 //
 
 import UIKit
-import Firebase
 
-class ProfileViewController: UIViewController {
+class UserProfileViewController: UIViewController {
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var profileUsernameLabel: UILabel!
     @IBOutlet weak var profileUserEmailLabel: UILabel!
@@ -32,9 +31,9 @@ class ProfileViewController: UIViewController {
         
         if selectUser == nil { selectUser = UserSingleton.shared.currentUser }
         
-//        if auth.currentUser?.uid != selectUser?.id {
-//            navigationItem.rightBarButtonItem?.isEnabled = false
-//        }
+        if auth.currentUser?.uid != selectUser?.id {
+            navigationItem.rightBarButtonItem?.isEnabled = false
+        }
         self.dismissKeyboardWhenTapped()
         profileUserBio.isEditable = false
         profileUserBio.isSelectable = false
@@ -49,7 +48,6 @@ class ProfileViewController: UIViewController {
     
     //MARK: - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
-        selectUser = UserSingleton.shared.currentUser
         Firebase().getUserPosts(userId: selectUser!.id) { [weak self] postArray, error in
             guard error == nil else { return }
             guard let self = self else { return }
@@ -66,7 +64,7 @@ class ProfileViewController: UIViewController {
     }
 }
 
-extension ProfileViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension UserProfileViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         postArray != nil ? postArray!.count : 0
     }

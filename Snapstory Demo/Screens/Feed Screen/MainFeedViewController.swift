@@ -12,13 +12,13 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var emptyFeedCell: UIView!
     
-    var perPostUsername: String = ""
     var firebasePostDataArray = [[String:Any]]() {
         didSet{ self.tableView.reloadData() }
     }
     var currentUser : User? {
         didSet{ self.getPostsFromFirebase() }
     }
+
     
     // MARK: - viewDidLoad
     override func viewDidLoad() {
@@ -26,16 +26,11 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        Firebase().getUserInfo(id: auth.currentUser!.uid) { [weak self] user, error in
+        
+        Firebase().getCurrentUser { [weak self] user in
             guard let self = self else { return }
-            guard error == nil else {
-                self.basicAlert(title: "Error", message: error!.localizedDescription)
-                return
-            }
             self.currentUser = user
+            UserSingleton.shared.currentUser = user
         }
     }
     
@@ -43,8 +38,9 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
     func getPostsFromFirebase(){
         if !(currentUser!.following.isEmpty) || currentUser!.postNumber != 0 {
             var queryArray = currentUser!.following
-            queryArray.append(currentUser!.userEmail)
-            Firebase().getFeedPosts(emailArray: queryArray) { [weak self] postArray, error in
+            queryArray.append(auth.currentUser!.uid)
+            
+            Firebase().getFeedPosts(idArray: queryArray) { [weak self] postArray, error in
                 guard let self = self else { return }
                 guard error == nil else {
                     self.basicAlert(title: "Error", message: error!.localizedDescription)
@@ -52,6 +48,8 @@ class MainFeedViewController: UIViewController, UITableViewDelegate, UITableView
                 }
                 self.firebasePostDataArray = postArray!
             }
+        }else {
+            //reset array
         }
     }
     

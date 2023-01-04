@@ -34,7 +34,9 @@ extension UIViewController {
     
     //MARK: - Dismiss Keyboard When Tapped
     func dismissKeyboardWhenTapped() {
-        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyb)))
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyb))
+        tapGestureRecognizer.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGestureRecognizer)
     }
     @objc private func hideKeyb(){
         view.endEditing(true)

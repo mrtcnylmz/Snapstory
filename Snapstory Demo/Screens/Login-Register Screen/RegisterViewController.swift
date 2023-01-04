@@ -35,10 +35,6 @@ class RegisterViewController: UIViewController {
                 self.basicAlert(title: "⚠️ Error", message: error!.localizedDescription)
                 return
             }
-            guard let data = try? PropertyListEncoder().encode(user) else {
-                fatalError("Failed to set current user.")
-            }
-            UserDefaults.standard.set(data, forKey: "currentUserInfo")
             self.basicAlert(title: "Success", message: "User created!") { _ in
                 self.performSegue(withIdentifier: "toTabBar", sender: nil)
             }

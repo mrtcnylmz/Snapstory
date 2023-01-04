@@ -20,6 +20,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let currentUser = Auth.auth().currentUser
         if currentUser != nil{
+            Firebase().getCurrentUser { user in
+                UserSingleton.shared.currentUser = user
+            }
             let board = UIStoryboard(name: "Main", bundle: nil)
             let tabBar = board.instantiateViewController(identifier: "tabBar") as! UITabBarController
             window?.rootViewController = tabBar
